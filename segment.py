@@ -708,7 +708,7 @@ def test_seg(args):
 def parse_args():
     # Training settings
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('cmd', choices=['train', 'test'], default='train')
+    # parser.add_argument('cmd', choices=['train', 'test'], default='train')
     parser.add_argument('-d', '--data-dir', default=None, required=False)
     parser.add_argument('-l', '--list-dir', default=None,
                         help='List dir to look for train_images.txt etc. '
@@ -766,10 +766,11 @@ def parse_args():
 
 def main():
     args = parse_args()
-    if args.cmd == 'train':
-        train_seg(args)
-    elif args.cmd == 'test':
-        test_seg(args)
+    train_seg(args)
+    # if args.cmd == 'train':
+    #     train_seg(args)
+    # elif args.cmd == 'test':
+    #     test_seg(args)
 
 
 if __name__ == '__main__':
