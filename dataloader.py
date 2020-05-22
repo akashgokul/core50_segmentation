@@ -107,13 +107,13 @@ class CORE50(object):
                 paths.append(self.paths[idx])
         self.paths = paths
 
-        # print("Loading LUP...")
-        # with open(os.path.join(root, 'LUP.pkl'), 'rb') as f:
-        #     self.LUP = pkl.load(f)
+        print("Loading LUP...")
+        with open(os.path.join(root, 'LUP.pkl'), 'rb') as f:
+            self.LUP = pkl.load(f)
 
-        # print("Loading labels...")
-        # with open(os.path.join(root, 'labels.pkl'), 'rb') as f:
-        #     self.labels = pkl.load(f)
+        print("Loading labels...")
+        with open(os.path.join(root, 'labels.pkl'), 'rb') as f:
+            self.labels = pkl.load(f)
 
     def __iter__(self):
         return self
