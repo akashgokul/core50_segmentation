@@ -57,7 +57,7 @@ def process_img(images_to_process):
                     #new_image[x,y] = 0
                 else:
                     binary_image[x, y] = 0
-        rgb_image.save('temp'+image)
+        # rgb_image.save('temp'+image)
 
 
 
