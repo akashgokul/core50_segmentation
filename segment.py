@@ -709,7 +709,7 @@ def parse_args():
     # Training settings
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('cmd', choices=['train', 'test'])
-    parser.add_argument('-d', '--data-dir', default=None, required=True)
+    parser.add_argument('-d', '--data-dir', default=None, required=False)
     parser.add_argument('-l', '--list-dir', default=None,
                         help='List dir to look for train_images.txt etc. '
                              'It is the same with --data-dir if not set.')
