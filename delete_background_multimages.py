@@ -101,7 +101,7 @@ def process_img(images_to_process):
                         binary_image[x, y] = 1
                     i = i + 1
 
-            rgb_image.save('results/' + image)
+            # rgb_image.save('results/' + image)
 
             from skimage import morphology
 
@@ -125,7 +125,7 @@ def process_img(images_to_process):
                         pixels[x, y] = (0, 0, 0)
                     i = i + 1
 
-            rgb_image.save('results/' + image + '__dilated.png')
+            # rgb_image.save('results/' + image + '__dilated.png')
 
             # saving the segmented image
 
@@ -141,7 +141,7 @@ def process_img(images_to_process):
                         pixels[x,y] = (int(r/2), g, int(b/2))
                     i = i + 1
 
-            rgb_image.save('colors/' + image + '__dilated.png')
+            # rgb_image.save('colors/' + image + '__dilated.png')
 
     return numpy.array(dilated_image_lst)
 
