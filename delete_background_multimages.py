@@ -19,6 +19,8 @@ svm_classes = 2
 
 dilated_image_lst = []
 for image in sorted(images_to_process):
+    if(image in ['labels.pkl',  'LUP.pkl',  'paths.pkl']):
+        continue
     print('Start processing '+image)
     image_path = img_path  + image
     image_d = image.replace('C','D')
