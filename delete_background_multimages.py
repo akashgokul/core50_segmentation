@@ -20,11 +20,8 @@ def process_img(images_to_process):
     for image in sorted(images_to_process):
         print('Start processing '+image)
         image_path = img_path  + image
-        depth_name = ''
-        depth_name = list(image)
-        depth_name[0] = 'D'
-        depth_name = ''.join(depth_name)
-        depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image
+        image_d = image.replace('C','D')
+        depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image_d
 
         depth_image = numpy.asarray(PIL.Image.open(depth_image_path).convert('LA'))
         depth_image.setflags(write=1)
