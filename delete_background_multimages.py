@@ -16,7 +16,7 @@ def process_img(images_to_process):
 
     svm_classes = 2
 
-
+    dilated_image_lst = []
     for image in sorted(images_to_process):
         print('Start processing '+image)
         image_path = img_path  + image
@@ -114,7 +114,7 @@ def process_img(images_to_process):
 
             # Applying morphological operators
             dilated_image = morphology.binary_dilation(binary_image, morphology.diamond(dilated)).astype(numpy.uint8)
-
+            dilated_image_lst.append(dilated_image)
             # saving the final image
             # plt.imsave('dilations/' + image,dilated_image, cmap=cm.gray)
 
@@ -146,7 +146,7 @@ def process_img(images_to_process):
 
             rgb_image.save('colors/' + image + '__dilated.png')
 
-            return dilated_image
+    return numpy.array(dilated_image_lst)
 
 
 
