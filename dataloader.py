@@ -160,7 +160,7 @@ class CORE50(object):
         #         train_y += self.labels[scen][run][i]
         # else:
         #     train_y = self.labels[scen][run][batch]
-        train_y_path = os.path.join(self.root, self.paths[idx][:-3] + '_seg.png')
+        train_y_path = [path[:-4] + 'seg.png' for path in train_paths]
         train_y = self.get_batch_from_paths(train_y_path).astype(np.float32)
 
         # # train_y = np.asarray(train_y, dtype=np.float32)
