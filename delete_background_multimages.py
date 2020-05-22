@@ -72,11 +72,11 @@ def process_img(scene_path):
             import pickle as cPickle
 
             if svm_classes == 1:
-                with open('/home/akash/core50_segmentation/trained_SVM.pkl', 'rb') as fid:
+                with open('/home/akash/core50/core50_segmentation/trained_SVM.pkl', 'rb') as fid:
                     svm = cPickle.load(fid)
                     print('SVM one class loaded correctly')
             elif svm_classes == 2:
-                with open('/home/akash/core50_segmentation/trained_two_classes_SVM.pkl', 'rb') as fid:
+                with open('/home/akash/core50/core50_segmentation/trained_two_classes_SVM.pkl', 'rb') as fid:
                     svm = cPickle.load(fid)
                     print('SVC loaded correctly')
 
