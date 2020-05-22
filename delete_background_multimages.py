@@ -5,11 +5,9 @@ import os
 # import matplotlib.pyplot as plt
 # import matplotlib.cm as cm
 
-def process_img(scene_path):
+def process_img(images_to_process):
     # Creating a list of all the images to process
     img_path = '/home/akash/core50/data/core50_128x128/'
-    images_to_process = []
-    images_to_process = os.listdir(img_path + scene_path)
 
     # SET THESE VALUES BEFORE STARTING
     background_depth = 218
@@ -26,7 +24,7 @@ def process_img(scene_path):
         depth_name = list(image)
         depth_name[0] = 'D'
         depth_name = ''.join(depth_name)
-        depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + scene_path
+        depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image
 
         depth_image = numpy.asarray(PIL.Image.open(depth_image_path).convert('LA'))
         depth_image.setflags(write=1)
