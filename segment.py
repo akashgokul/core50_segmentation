@@ -89,7 +89,7 @@ class DRNSeg(nn.Module):
                  pretrained=False, use_torch_up=False):
         super(DRNSeg, self).__init__()
         model = drn.__dict__.get(model_name)(
-            pretrained=pretrained, num_classes=1000)
+            pretrained=False, num_classes=1000)
         pmodel = nn.DataParallel(model)
         if pretrained_model is not None:
             pmodel.load_state_dict(pretrained_model)
