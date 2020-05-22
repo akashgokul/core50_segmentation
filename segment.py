@@ -713,7 +713,7 @@ def parse_args():
     parser.add_argument('-l', '--list-dir', default=None,
                         help='List dir to look for train_images.txt etc. '
                              'It is the same with --data-dir if not set.')
-    parser.add_argument('-c', '--classes', default=0, type=int)
+    parser.add_argument('-c', '--classes', default=2, type=int)
     parser.add_argument('-s', '--crop-size', default=0, type=int)
     parser.add_argument('--step', type=int, default=200)
     parser.add_argument('--arch', default='drn_d_22')
