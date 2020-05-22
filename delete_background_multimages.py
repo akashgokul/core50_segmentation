@@ -15,7 +15,7 @@ for (root, dirname, filenames) in os.walk(img_path):
             print(root)
             print(dirname)
             print(file)
-            break
+            assert 3==2
             # images_to_process.append(root + "/" + file)
 # images_to_process = [f for f in os.listdir(img_path) if os.path.isfile(f) and f not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']]
 print(images_to_process)
