@@ -135,7 +135,7 @@ class CORE50(object):
             for i in range(self.batch + 1):
                 train_idx_list += self.LUP[scen][run][i]
         else:
-            train_idx_list = self.LUP[scen][run][batch]
+            train_idx_list = [i for i in range(0,len(self.paths))] #self.LUP[scen][run][batch]
 
         # loading data
         if self.preload:
@@ -147,7 +147,6 @@ class CORE50(object):
             train_paths = []
             train_relative_paths = []
             for idx in train_idx_list:
-                print(self.paths[idx])
                 train_paths.append(os.path.join(self.root, self.paths[idx]))
                 train_relative_paths.append(self.paths[idx])
             # loading imgs
