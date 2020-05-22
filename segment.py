@@ -26,7 +26,7 @@ from torch.utils.tensorboard import SummaryWriter
 from torch.autograd import Variable
 
 import drn
-import data_transforms as transforms
+# import data_transforms as transforms
 from dataloader import CORE50
 from core50_dataset import CORE50Helper
 
