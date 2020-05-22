@@ -13,7 +13,7 @@ for (root, dirname, filenames) in os.walk(img_path):
     for file in filenames:
         if(file not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']):
             print(root)
-            print(os.path.relpath(root + '/' + file)[:29])
+            print(os.path.relpath(root + '/' + file)[30:])
             print(file)
             assert 3==2
             # images_to_process.append(root + "/" + file)
