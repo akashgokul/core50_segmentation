@@ -89,7 +89,7 @@ class DRNSeg(nn.Module):
                  pretrained=False, use_torch_up=False):
         super(DRNSeg, self).__init__()
         model = drn.__dict__.get(model_name)(
-            pretrained=False, num_classes=1000)
+            pretrained=pretrained, num_classes=1000)
         pmodel = nn.DataParallel(model)
         if pretrained_model is not None:
             pmodel.load_state_dict(pretrained_model)
@@ -716,7 +716,7 @@ def parse_args():
     parser.add_argument('-c', '--classes', default=0, type=int)
     parser.add_argument('-s', '--crop-size', default=0, type=int)
     parser.add_argument('--step', type=int, default=200)
-    parser.add_argument('--arch')
+    parser.add_argument('--arch', default='drn_d_22')
     parser.add_argument('--batch-size', type=int, default=64, metavar='N',
                         help='input batch size for training (default: 64)')
     parser.add_argument('--epochs', type=int, default=10, metavar='N',
