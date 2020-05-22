@@ -122,7 +122,7 @@ for image in sorted(images_to_process):
         dilated_image = morphology.binary_dilation(binary_image, morphology.diamond(dilated)).astype(numpy.uint8)
         dilated_image_lst.append(dilated_image)
         # saving the final image
-        plt.imsave(image_path + '_seg.png',dilated_image, cmap=cm.gray)
+        plt.imsave(image_path[:-3] + '_seg.png',dilated_image, cmap=cm.gray)
 
         # # applying dilation to the rgb
         # i = 0
