@@ -355,8 +355,8 @@ def train_seg(args):
     for k, v in args.__dict__.items():
         print(k, ':', v)
 
-    single_model = DRNSeg(args.arch, args.classes, None,
-                          pretrained=False)
+    single_model = DRNSeg(args.arch, args.classes, None)#,
+                          #pretrained=False)
     # if args.pretrained:
     #     single_model.load_state_dict(torch.load(args.pretrained))
     model = torch.nn.DataParallel(single_model).cuda()
