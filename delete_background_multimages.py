@@ -24,7 +24,7 @@ def process_img(images_to_process):
         depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image_d
 
         depth_image = numpy.asarray(PIL.Image.open(depth_image_path).convert('LA'))
-        depth_image.setflags(write=1)
+        # depth_image.setflags(write=1)
         rgb_image = PIL.Image.open(image_path)
 
         # use this boolean to decide wheater or not delete the holding hand
