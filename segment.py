@@ -753,7 +753,7 @@ def parse_args():
     parser.add_argument('--test-suffix', default='', type=str)
     args = parser.parse_args()
 
-    assert args.classes > 0
+    # assert args.classes > 0
 
     print(' '.join(sys.argv))
     print(args)
