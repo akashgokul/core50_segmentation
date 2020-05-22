@@ -8,7 +8,7 @@ import matplotlib.cm as cm
 
 # Creating a list of all the images to process
 img_path = '/home/akash/core50/data/core50_128x128/'
-images_to_process = os.listdir(img_path)
+images_to_process = [f for f in os.listdir(img_path) if os.path.isfile(f) and f not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']]
 
 # SET THESE VALUES BEFORE STARTING
 background_depth = 218
@@ -19,8 +19,6 @@ svm_classes = 2
 
 dilated_image_lst = []
 for image in sorted(images_to_process):
-    if(image in ['labels.pkl',  'LUP.pkl',  'paths.pkl']):
-        continue
     print('Start processing '+image)
     image_path = img_path  + image
     image_d = image.replace('C','D')
