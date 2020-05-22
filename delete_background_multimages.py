@@ -9,12 +9,13 @@ import matplotlib.cm as cm
 # Creating a list of all the images to process
 img_path = '/home/akash/core50/data/core50_128x128/'
 images_to_process = []
-for (dirpath, dirname, filename) in os.walk(img_path):
-    if(filename not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']):
-        print(dirpath)
-        print(dirname)
-        print(filename)
-        images_to_process.append(dirpath + filename)
+for (root, dirname, filenames) in os.walk(img_path):
+    for file in filenames:
+        if(file not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']):
+            print(root)
+            print(dirname)
+            print(file)
+            print("-----")
 # images_to_process = [f for f in os.listdir(img_path) if os.path.isfile(f) and f not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']]
 print(images_to_process)
 
