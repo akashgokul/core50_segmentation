@@ -31,6 +31,9 @@ for image in sorted(images_to_process):
     image_d = image.replace('C','D')
     depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image_d
     if(not os.path.exists(depth_image_path)):
+        print("MISSING: ")
+        print(depth_image_path)
+        print("-------")
         continue
     depth_image = numpy.asarray(PIL.Image.open(depth_image_path).convert('LA'))
     depth_image.setflags(write=1)
@@ -122,6 +125,7 @@ for image in sorted(images_to_process):
         dilated_image = morphology.binary_dilation(binary_image, morphology.diamond(dilated)).astype(numpy.uint8)
         dilated_image_lst.append(dilated_image)
         # saving the final image
+        print("PATH: " + image_path[:-4] + '_seg.png')
         plt.imsave(image_path[:-4] + '_seg.png',dilated_image, cmap=cm.gray)
 
         # # applying dilation to the rgb
