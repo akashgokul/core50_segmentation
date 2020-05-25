@@ -25,15 +25,14 @@ dilated = 1
 svm_classes = 2
 
 dilated_image_lst = []
+missing_ct = 0
 for image in sorted(images_to_process):
     print('Start processing '+image)
     image_path = img_path  + image
     image_d = image.replace('C','D')
     depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image_d
     if(not os.path.exists(depth_image_path)):
-        print("MISSING: ")
-        print(depth_image_path)
-        print("-------")
+        missing_ct += 1
         continue
     depth_image = numpy.asarray(PIL.Image.open(depth_image_path).convert('LA'))
     depth_image.setflags(write=1)
@@ -155,6 +154,8 @@ for image in sorted(images_to_process):
         #         i = i + 1
 
         # rgb_image.save('colors/' + image + '__dilated.png')
+print("------------")
+print("Skipped Files: " + str(missing_ct))
 
 
 
