@@ -21,7 +21,8 @@ def save_seg(img_path):
                 relative_path = os.path.relpath(root + '/' + file)[30:]
                 images_to_process.append(relative_path)
     # images_to_process = [f for f in os.listdir(img_path) if os.path.isfile(f) and f not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']]
-    print(images_to_process)
+    print(len(images_to_process))
+    print(images_to_process[0])
 
     # SET THESE VALUES BEFORE STARTING
     background_depth = 218
