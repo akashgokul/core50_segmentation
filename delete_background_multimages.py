@@ -19,7 +19,9 @@ def save_seg(img_path):
         for file in filenames:
             if(file not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']):
                 relative_path = os.path.relpath(root + '/' + file)[30:]
-                images_to_process.append(relative_path)
+                if('seg' not in relative_path):
+                    #Handles old seg data and avoids saving as img
+                    images_to_process.append(relative_path)
     # images_to_process = [f for f in os.listdir(img_path) if os.path.isfile(f) and f not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']]
     print(len(images_to_process))
     print(images_to_process[0])
