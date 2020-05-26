@@ -41,7 +41,6 @@ def save_seg(img_path):
         image_path = root_path  + image
         image_d = image.replace('C','D')
         depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image_d
-        print(depth_image_path)
         if(not os.path.exists(depth_image_path)):
             missing_ct += 1
             continue
