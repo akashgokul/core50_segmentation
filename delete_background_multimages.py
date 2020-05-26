@@ -14,6 +14,7 @@ args = parser.parse_args()
 def save_seg(img_path):
     # Creating a list of all the images to process
     # img_path = '/home/akash/core50/data/core50_128x128/'
+    root_path = '/home/akash/core50/data/core50_128x128/'
     images_to_process = []
     for (root, dirname, filenames) in os.walk(img_path):
         for file in filenames:
@@ -37,7 +38,7 @@ def save_seg(img_path):
     missing_ct = 0
     for image in tqdm(sorted(images_to_process)):
         print('Start processing '+image)
-        image_path = img_path  + image
+        image_path = root_path  + image
         image_d = image.replace('C','D')
         depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image_d
         print(depth_image_path)
