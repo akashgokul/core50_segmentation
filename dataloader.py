@@ -159,12 +159,13 @@ class CORE50(object):
         #         train_y += self.labels[scen][run][i]
         # else:
         #     train_y = self.labels[scen][run][batch]
-        train_y_path = [path[:-4] + 'seg.png' for path in train_paths]
+        train_y_path = [[path[:-4] + 'seg.png' for path in train_paths][0]]
         train_y = self.get_batch_from_paths(train_y_path).astype(np.float32)
 
         # # train_y = np.asarray(train_y, dtype=np.float32)
         # train_y = process_img(train_relative_paths)
-        #self.writer.add_image('mask', train_y,dataformats='HWC')
+        self.writer.add_image('mask', train_y,dataformats='HWC')
+        assert 3==2
 
         # Update state for next iter
         self.batch += 1
