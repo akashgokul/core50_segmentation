@@ -137,32 +137,34 @@ def save_seg(img_path):
             print("PATH: " + image_path[:-4] + '_seg.png')
             plt.imsave(image_path[:-4] + '_seg.png',dilated_image, cmap=cm.gray)
 
-            # # applying dilation to the rgb
-            # i = 0
-            # pixels = rgb_image.load()
-            # for x in range(width):
-            #     for y in range(height):
-            #         if dilated_image[x,y] == 1:
-            #             # print('this pixel belongs to the hand')
-            #             pixels[x, y] = (0, 0, 0)
-            #         i = i + 1
+            # applying dilation to the rgb
+            i = 0
+            pixels = rgb_image.load()
+            for x in range(width):
+                for y in range(height):
+                    if dilated_image[x,y] == 1:
+                        # print('this pixel belongs to the hand')
+                        pixels[x, y] = (0, 0, 0)
+                    i = i + 1
 
             # # rgb_image.save('results/' + image + '__dilated.png')
 
             # # saving the segmented image
 
-            # i = 0
-            # pixels = rgb_image.load()
-            # for x in range(width):
-            #     for y in range(height):
-            #         r, g, b = img.getpixel((x, y))
-            #         ciccio = pixels[x, y]
-            #         if pixels[x, y] != (0,0,0):
-            #             # se il colore non è nero devo fare un leggero overlay
-            #             r, g, b = img.getpixel((x, y))
-            #             pixels[x,y] = (int(r/2), g, int(b/2))
-            #         i = i + 1
-
+            i = 0
+            pixels = rgb_image.load()
+            for x in range(width):
+                for y in range(height):
+                    r, g, b = img.getpixel((x, y))
+                    ciccio = pixels[x, y]
+                    if pixels[x, y] != (0,0,0):
+                        # se il colore non è nero devo fare un leggero overlay
+                        r, g, b = img.getpixel((x, y))
+                        pixels[x,y] = (int(r/2), g, int(b/2))
+                    i = i + 1
+            
+            print("PATH: " + image_path[:-4] + '_seg.png')
+            plt.imsave(image_path[:-4] + '_seg.png',rgb_image, cmap=cm.gray)
             # rgb_image.save('colors/' + image + '__dilated.png')
     print("------------")
     print("Skipped Files: " + str(missing_ct))
