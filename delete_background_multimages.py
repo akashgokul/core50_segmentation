@@ -164,7 +164,7 @@ def save_seg(img_path):
                         pixels[x,y] = (int(r/2), g, int(b/2))
                     i = i + 1
             
-            print("PATH: " + image_path[:-4] + '_seg.png')
+            print("Saved PATH: " + image_path[:-4] + '_seg.png')
             seg = rgb_image.convert("L")
             seg.save(image_path[:-4] + '_seg.png')
             #plt.imsave(image_path[:-4] + '_newseg.png',seg, cmap=cm.gray)
