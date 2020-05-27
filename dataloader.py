@@ -153,10 +153,6 @@ class CORE50(object):
             train_paths = []
             train_relative_paths = []
             for idx in train_idx_list:
-                print("REL PATH")
-                print(self.paths[idx])
-                print("IMG")
-                print(self.paths[idx][-15:])
                 train_paths.append(os.path.join(self.root, self.paths[idx]))
                 train_relative_paths.append(self.paths[idx])
             # loading imgs
