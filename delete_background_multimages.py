@@ -36,13 +36,12 @@ def save_seg(img_path):
 
     dilated_image_lst = []
     missing_ct = 0
+    print("\n----------\n")
     for image in tqdm(sorted(images_to_process)):
-        print('Start processing '+image)
+        print('Start processing '+image + "\n")
         image_path = root_path  + image
         image_d = image.replace('C','D')
         depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image_d
-        print("DEPTH PATH:")
-        print(depth_image_path)
         if(not os.path.exists(depth_image_path)):
             missing_ct += 1
             continue
