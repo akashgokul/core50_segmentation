@@ -121,7 +121,6 @@ class CORE50(object):
         print("Loading labels...")
         with open(os.path.join(root, 'labels.pkl'), 'rb') as f:
             self.labels = pkl.load(f)
-            #TODO: Print labels to do class mapping
         
     def __iter__(self):
         return self
@@ -234,6 +233,7 @@ class CORE50(object):
             # test paths
             test_paths = []
             test_relative_paths = []
+            print(self.paths)
             for idx in test_idx_list:
                 test_paths.append(os.path.join(self.root, self.paths[idx]))
                 test_relative_paths.append(self.paths[idx])
