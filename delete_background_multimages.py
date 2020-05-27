@@ -36,7 +36,7 @@ def save_seg(img_path):
 
     dilated_image_lst = []
     missing_ct = 0
-    print("\n----------\n")
+    print("\n" + 10*"----------" + "\n")
     for image in tqdm(sorted(images_to_process)):
         print('Start processing '+image + "\n")
         image_path = root_path  + image
