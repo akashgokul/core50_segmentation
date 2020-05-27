@@ -166,7 +166,8 @@ def save_seg(img_path):
                     i = i + 1
             
             print("PATH: " + image_path[:-4] + '_seg.png')
-            plt.imsave(image_path[:-4] + '_newseg.png',rgb_image[:,:,:3], cmap=cm.gray)
+            seg_img = numpy.array(rgb_image)[:,:,:3]
+            plt.imsave(image_path[:-4] + '_newseg.png',seg_img, cmap=cm.gray)
             # rgb_image.save('colors/' + image + '__dilated.png')
     print("------------")
     print("Skipped Files: " + str(missing_ct))
