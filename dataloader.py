@@ -233,7 +233,8 @@ class CORE50(object):
             # test paths
             test_paths = []
             test_relative_paths = []
-            print(self.paths)
+            print(len(self.paths))
+            print(len(test_idx_list))
             for idx in test_idx_list:
                 test_paths.append(os.path.join(self.root, self.paths[idx]))
                 test_relative_paths.append(self.paths[idx])
