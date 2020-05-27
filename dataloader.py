@@ -27,16 +27,19 @@ from __future__ import absolute_import
 
 import numpy as np
 import pickle as pkl
+import pandas as pd
 import os
 import logging
 from hashlib import md5
 from PIL import Image
+from torchvision import transforms
+
+from core50_helper_dataset import CORE50
 
 import torch
-from torch.utils.tensorboard import SummaryWriter  
 
 class CORE50(object):
-    """ CORe50 Data Loader calss
+    """ CORe50 Data Loader class
 
     Args:
         root (string): Root directory of the dataset where ``core50_128x128``,
@@ -70,7 +73,7 @@ class CORE50(object):
         'nicv2_391': 391
     }
 
-    def __init__(self, root='', preload=False, scenario='ni', cumul=False,
+    def __init__(self, root='', preload=False, scenario='ni', task_type = 'classify', cumul=False,
                  run=0, start_batch=0):
         """" Initialize Object """
 
@@ -80,7 +83,11 @@ class CORE50(object):
         self.cumul = cumul
         self.run = run
         self.batch = start_batch
-        self.writer = SummaryWriter()
+        self.task_type = task_type
+        if(self.task_type == 'detect'):
+            self.train_bbox_gt = pd.read_csv('/home/akash/core50/data/core50_train.csv')
+            self.test_bbox_gt = pd.read_csv('/home/akash/core50/data/core50_test.csv')
+
 
         if preload:
             print("Loading data...")
@@ -114,7 +121,8 @@ class CORE50(object):
         print("Loading labels...")
         with open(os.path.join(root, 'labels.pkl'), 'rb') as f:
             self.labels = pkl.load(f)
-
+            #TODO: Print labels to do class mapping
+        
     def __iter__(self):
         return self
 
@@ -135,7 +143,7 @@ class CORE50(object):
             for i in range(self.batch + 1):
                 train_idx_list += self.LUP[scen][run][i]
         else:
-            train_idx_list = [i for i in range(0,len(self.paths))] #self.LUP[scen][run][batch]
+            train_idx_list = self.LUP[scen][run][batch]
 
         # loading data
         if self.preload:
@@ -147,30 +155,70 @@ class CORE50(object):
             train_paths = []
             train_relative_paths = []
             for idx in train_idx_list:
+                print("REL PATH")
+                print(self.paths[idx][30:])
+                print("IMG")
+                print(self.paths[idx][-15:])
                 train_paths.append(os.path.join(self.root, self.paths[idx]))
                 train_relative_paths.append(self.paths[idx])
             # loading imgs
             train_x = self.get_batch_from_paths(train_paths).astype(np.float32)
 
         # In either case we have already loaded the y
-        # if self.cumul:
-        #     train_y = []
-        #     for i in range(self.batch + 1):
-        #         train_y += self.labels[scen][run][i]
-        # else:
-        #     train_y = self.labels[scen][run][batch]
-        train_y_path = [[path[:-4] + 'seg.png' for path in train_paths][0]]
-        train_y = self.get_batch_from_paths(train_y_path).astype(np.float32)
+        if self.cumul:
+            train_y_label = []
+            for i in range(self.batch + 1):
+                train_y_label += self.labels[scen][run][i]
+            
+            train_y_label = np.asarray(train_y_label, dtype=np.float32)
+            
+            train_y_bbox = []
+            if(self.task_type == 'detect'):
+                train_y_bbox = [ [self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmin'],
+                    self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmax'],   
+                    self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['ymin'],
+                    self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmin']] 
+                    for img_path in train_relative_paths]
+                train_y_bbox = torch.as_tensor(train_y_bbox)
+            
+            train_y_mask = []
+            if(self.task_type == 'segment'):
+                train_y_mask = self.get_batch_from_paths(['/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' 
+                                                            + 
+                                                        path.replace('C','D') for path in train_relative_paths], mask=True)
 
-        # # train_y = np.asarray(train_y, dtype=np.float32)
+            train_y_label = np.asarray(train_y_label, dtype=np.float32)
+            targets = {'bbox': train_y_bbox, 'label':train_y_label, 'mask':train_y_mask}
+        else:
+            train_y_label = self.labels[scen][run][batch]
+            train_y_label = np.asarray(train_y_label, dtype=np.float32)
+            train_y_bbox = []
+            if(self.task_type == 'detect'):
+                train_y_bbox = [ [self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmin'],
+                    self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmax'],   
+                    self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['ymin'],
+                    self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmin']] 
+                    for img_path in train_relative_paths]
+                train_y_bbox = torch.as_tensor(train_y_bbox)
+            print(train_y_bbox[-1])
+
+            train_y_mask = []
+            if(self.task_type == 'segment'):
+                train_y_mask = self.get_batch_from_paths(['/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' 
+                                                            + 
+                                                        path.replace('C','D') for path in train_relative_paths], mask=True)
+            print("Mask")
+            print(train_y_mask[-1])
+
+            train_y_label = np.asarray(train_y_label, dtype=np.float32)
+            targets = {'bbox': train_y_bbox, 'label':train_y_label, 'mask':train_y_mask}
         # train_y = process_img(train_relative_paths)
-        self.writer.add_image('mask', train_y,dataformats='HWC')
-        assert 3==2
+        #self.writer.add_image('mask', train_y,dataformats='HWC')
 
         # Update state for next iter
         self.batch += 1
 
-        return (train_x, train_y)
+        return (train_x, targets, self.batch)
 
     def get_test_set(self):
         """ Return the test set (the same for each inc. batch). """
@@ -192,12 +240,28 @@ class CORE50(object):
 
             # test imgs
             test_x = self.get_batch_from_paths(test_paths).astype(np.float32)
+    
+        test_y_label = self.labels[scen][run][-1]
+        test_y_bbox = []
+        if(self.task_type == 'detect'):
+            test_y_bbox = [ [self.test_bbox_gt.loc[self.test_bbox_gt['Filename'] == img_path[-15:]]['xmin'],
+                self.test_bbox_gt.loc[self.test_bbox_gt['Filename'] == img_path[-15:]]['xmax'],   
+                self.test_bbox_gt.loc[self.test_bbox_gt['Filename'] == img_path[-15:]]['ymin'],
+                self.test_bbox_gt.loc[self.test_bbox_gt['Filename'] == img_path[-15:]]['xmin']] 
+                for img_path in test_relative_paths]
+            test_y_bbox = torch.as_tensor(test_y_bbox)
 
-        # test_y = self.labels[scen][run][-1]
-        # test_y = np.asarray(test_y, dtype=np.float32)
-        # test_y = process_img(test_relative_paths)
 
-        return test_x, test_y
+        test_y_mask = []
+        if(self.task_type == 'segment'):
+            test_y_mask = self.get_batch_from_paths(['/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' 
+                                                        + 
+                                                    path.replace('C','D') for path in test_relative_paths], mask=True)
+
+        test_y_label = np.asarray(test_y_label, dtype=np.float32)
+        targets = {'bbox': test_y_bbox, 'label':test_y_label, 'mask':test_y_mask}
+
+        return test_x, targets
 
     next = __next__  # python2.x compatibility.
 
@@ -251,7 +315,7 @@ class CORE50(object):
             for i, path in enumerate(paths):
                 if verbose:
                     print("\r" + path + " processed: " + str(i + 1), end='')
-                x[i] = np.array(Image.open(path))
+                x[i] = torch.transforms.ToTensor(np.array(Image.open(path)))
 
             if verbose:
                 print()
