@@ -39,7 +39,7 @@ def save_seg(img_path):
     missing_ct = 0
     for image in tqdm(sorted(images_to_process)):
         print('Start processing '+image)
-        image_path = root_path  + image
+        image_path = image #root_path  + image
         image_p = image[38:]
         image_d = image_p.replace('C','D')
         print(image_d[38:])
