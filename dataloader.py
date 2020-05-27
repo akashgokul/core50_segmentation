@@ -338,7 +338,7 @@ if __name__ == "__main__":
     dataset = CORE50(root='/home/akash/core50/data/core50_128x128', scenario="ni", task_type='detect')
 
     # Get the fixed test set
-    test_x, test_y = dataset.get_test_set()
+    # test_x, test_y = dataset.get_test_set()
 
     # loop over the training incremental batches
     for i, train_batch in enumerate(dataset):
