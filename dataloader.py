@@ -108,10 +108,10 @@ class CORE50(object):
         with open(os.path.join(root, 'paths.pkl'), 'rb') as f:
             self.paths = pkl.load(f)
         paths = []
-        for idx in range(len(self.paths)):
-            curr_dir = os.path.join(self.root, self.paths[idx])
-            if(os.path.isfile(curr_dir[:-4]+'_seg.png')):
-                paths.append(self.paths[idx])
+        # for idx in range(len(self.paths)):
+        #     curr_dir = os.path.join(self.root, self.paths[idx])
+        #     if(os.path.isfile(curr_dir[:-4]+'_seg.png')):
+        #         paths.append(self.paths[idx])
         self.paths = paths
 
         print("Loading LUP...")
