@@ -190,7 +190,7 @@ class CORE50(object):
             if(self.task_type == 'detect'):
                 print("PATH")
                 print(train_relative_paths[0][-15:])
-                train_y_bbox = [ [print(self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:].replace('png','jpg')]['xmin'][1]),print("--"),
+                train_y_bbox = [ [print(self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:].replace('png','jpg')]['xmin'][0]),print("--"),
                     self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmax'],   
                     self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['ymin'],
                     self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmin']] 
