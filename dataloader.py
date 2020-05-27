@@ -337,7 +337,7 @@ if __name__ == "__main__":
 
     # Create the dataset object for example with the "NIC_v2 - 79 benchmark"
     # and assuming the core50 location in ~/core50/128x128/
-    dataset = CORE50(root='/home/akash/core50/data/core50_128x128', scenario="ni")
+    dataset = CORE50(root='/home/akash/core50/data/core50_128x128', scenario="ni", task_type='detect')
 
     # Get the fixed test set
     test_x, test_y = dataset.get_test_set()
