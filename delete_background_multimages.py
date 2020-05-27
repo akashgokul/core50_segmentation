@@ -40,7 +40,8 @@ def save_seg(img_path):
     for image in tqdm(sorted(images_to_process)):
         print('Start processing '+image)
         image_path = root_path  + image
-        image_d = image.replace('C','D')
+        image_p = image[38:]
+        image_d = image_p.replace('C','D')
         print(image_d[38:])
         depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image_d
         if(not os.path.exists(depth_image_path)):
