@@ -32,7 +32,6 @@ import os
 import logging
 from hashlib import md5
 from PIL import Image
-from torchvision import transforms
 
 from core50_helper_dataset import CORE50
 
@@ -317,8 +316,7 @@ class CORE50(object):
                 if verbose:
                     print("\r" + path + " processed: " + str(i + 1), end='')
                 img = np.array(Image.open(path))
-                print(img.shape)
-                x[i] = transforms.ToTensor()(img)
+                x[i] = img
 
             if verbose:
                 print()
