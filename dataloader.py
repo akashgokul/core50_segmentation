@@ -188,6 +188,8 @@ class CORE50(object):
             train_y_label = np.asarray(train_y_label, dtype=np.float32)
             train_y_bbox = []
             if(self.task_type == 'detect'):
+                print("PATH")
+                print(train_relative_paths[0][-15:])
                 train_y_bbox = [ [self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmin'],
                     self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmax'],   
                     self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['ymin'],
