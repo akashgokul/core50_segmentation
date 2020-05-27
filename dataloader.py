@@ -154,7 +154,7 @@ class CORE50(object):
             train_relative_paths = []
             for idx in train_idx_list:
                 print("REL PATH")
-                print(self.paths[idx][30:])
+                print(self.paths[idx])
                 print("IMG")
                 print(self.paths[idx][-15:])
                 train_paths.append(os.path.join(self.root, self.paths[idx]))
@@ -232,8 +232,6 @@ class CORE50(object):
             # test paths
             test_paths = []
             test_relative_paths = []
-            print(len(self.paths))
-            print(len(test_idx_list))
             for idx in test_idx_list:
                 test_paths.append(os.path.join(self.root, self.paths[idx]))
                 test_relative_paths.append(self.paths[idx])
