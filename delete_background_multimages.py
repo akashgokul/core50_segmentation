@@ -15,15 +15,14 @@ def save_seg(img_path):
     # Creating a list of all the images to process
     # img_path = '/home/akash/core50/data/core50_128x128/'
     root_path = '/home/akash/core50/data/core50_128x128/'
-    images_to_process = ['/home/akash/core50/data/core50_128x128/s1/o1/C_01_01_249.png']
+    images_to_process = []
     for (root, dirname, filenames) in os.walk(img_path):
         for file in filenames:
             if(file not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']):
                 relative_path = os.path.relpath(root + '/' + file)[30:]
                 if('seg' not in relative_path):
-                    print("HERE")
                     #Handles old seg data and avoids saving as img
-                    #images_to_process.append(relative_path)
+                    images_to_process.append(relative_path)
     # images_to_process = [f for f in os.listdir(img_path) if os.path.isfile(f) and f not in ['labels.pkl',  'LUP.pkl',  'paths.pkl']]
     print(len(images_to_process))
     print(images_to_process[0])
@@ -39,11 +38,11 @@ def save_seg(img_path):
     missing_ct = 0
     for image in tqdm(sorted(images_to_process)):
         print('Start processing '+image)
-        image_path = image #root_path  + image
-        image_p = image[38:]
-        image_d = image_p.replace('C','D')
-        print(image_d[38:])
+        image_path = root_path  + image
+        image_d = image.replace('C','D')
         depth_image_path = '/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' + image_d
+        print("DEPTH PATH:")
+        print(depth_image_path)
         if(not os.path.exists(depth_image_path)):
             missing_ct += 1
             continue
@@ -167,8 +166,7 @@ def save_seg(img_path):
             
             print("PATH: " + image_path[:-4] + '_seg.png')
             seg = rgb_image.convert("L")
-            print(seg.size)
-            seg.save(image_path[:-4] + '_newseg.png')
+            seg.save(image_path[:-4] + '_seg.png')
             #plt.imsave(image_path[:-4] + '_newseg.png',seg, cmap=cm.gray)
             # rgb_image.save('colors/' + image + '__dilated.png')
     print("------------")
