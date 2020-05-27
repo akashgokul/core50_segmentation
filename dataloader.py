@@ -187,16 +187,13 @@ class CORE50(object):
             train_y_label = self.labels[scen][run][batch]
             train_y_label = np.asarray(train_y_label, dtype=np.float32)
             train_y_bbox = []
-            if(self.task_type == 'detect'):
-                print("PATH")
-                print(train_relative_paths[0][-15:])
-                train_y_bbox = [ [print(self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:].replace('png','jpg')]['xmin'].item()),print("--"),
-                    self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmax'],   
-                    self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['ymin'],
-                    self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmin']] 
-                    for img_path in train_relative_paths]
-                train_y_bbox = torch.as_tensor(train_y_bbox)
-            print(train_y_bbox[-1])
+            # if(self.task_type == 'detect'):
+            #     train_y_bbox = [ [self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:].replace('png','jpg')]['xmin'].item(),
+            #         self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmax'],   
+            #         self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['ymin'],
+            #         self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmin']] 
+            #         for img_path in train_relative_paths]
+            #     train_y_bbox = torch.as_tensor(train_y_bbox)
 
             train_y_mask = []
             #TODO: FIX BELOW TO SEGMENT
