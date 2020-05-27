@@ -316,7 +316,7 @@ class CORE50(object):
             for i, path in enumerate(paths):
                 if verbose:
                     print("\r" + path + " processed: " + str(i + 1), end='')
-                x[i] = torch.transforms.ToTensor(np.array(Image.open(path)))
+                x[i] = torchvision.transforms.ToTensor(np.array(Image.open(path)))
 
             if verbose:
                 print()
