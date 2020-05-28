@@ -311,7 +311,8 @@ class CORE50(object):
                     print("\r" + path + " processed: " + str(i + 1), end='')
                 img = Image.open(path)
                 #Just in case convert to grayscale
-                img = img.convert("L")
+                if(mask):
+                    img = img.convert("L")
 
                 img = np.array(img)
                 x[i] = img
