@@ -186,7 +186,7 @@ class CORE50(object):
         else:
             train_y_label = self.labels[scen][run][batch]
             train_y_label = np.asarray(train_y_label, dtype=np.float32)
-            train_y_bbox = []
+            train_y_bbox = np.array([])
             # if(self.task_type == 'detect'):
             #     train_y_bbox = [ [self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:].replace('png','jpg')]['xmin'].item(),
             #         self.train_bbox_gt.loc[self.train_bbox_gt['Filename'] == img_path[-15:]]['xmax'],   
@@ -195,8 +195,9 @@ class CORE50(object):
             #         for img_path in train_relative_paths]
             #     train_y_bbox = torch.as_tensor(train_y_bbox)
 
-            train_y_mask = []
+            train_y_mask = np.array([])
             #TODO: FIX BELOW TO SEGMENT
+            print("HERE")
             if(self.task_type == 'detect'):
                 mask_paths = [path[:-4] +'_seg.png' for path in train_paths]
                 print("Paths")
@@ -315,11 +316,6 @@ class CORE50(object):
                     img = np.expand_dims(img, axis=-1)
 
                 img = np.array(img)
-                print("MASK: ")
-                print(mask)
-                print("\n Image Shape:")
-                print(img.shape)
-                print("----------")
                 x[i] = img
 
             if verbose:
