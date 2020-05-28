@@ -309,8 +309,11 @@ class CORE50(object):
             for i, path in enumerate(paths):
                 if verbose:
                     print("\r" + path + " processed: " + str(i + 1), end='')
-                img = np.array(Image.open(path))
-                print(img.shape)
+                img = Image.open(path)
+                #Just in case convert to grayscale
+                img = img.convert("L")
+
+                img = np.array(img)
                 x[i] = img
 
             if verbose:
@@ -346,7 +349,7 @@ if __name__ == "__main__":
 
         print("----------- batch {0} -------------".format(i))
         print("train_x shape: {}, train_y shape: {}"
-              .format(train_x.shape, train_y.shape))
+              .format(train_x.shape, train_y['mask'].shape))
 
         # use the data
         pass
