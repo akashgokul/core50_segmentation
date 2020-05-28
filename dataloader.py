@@ -313,11 +313,14 @@ class CORE50(object):
                 #Just in case convert to grayscale
                 if(mask):
                     img = img.convert("L")
+                    img = np.expand_dims(img, axis=-1)
 
                 img = np.array(img)
                 print("MASK: ")
                 print(mask)
+                print("\n Image Shape:")
                 print(img.shape)
+                print("----------")
                 x[i] = img
 
             if verbose:
