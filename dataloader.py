@@ -347,7 +347,7 @@ if __name__ == "__main__":
     for i, train_batch in enumerate(dataset):
         # WARNING train_batch is NOT a mini-batch, but one incremental batch!
         # You can later train with SGD indexing train_x and train_y properly.
-        train_x, train_y = train_batch
+        train_x, train_y, t = train_batch
 
         print("----------- batch {0} -------------".format(i))
         print("train_x shape: {}, train_y shape: {}"
