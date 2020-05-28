@@ -315,6 +315,9 @@ class CORE50(object):
                     img = img.convert("L")
 
                 img = np.array(img)
+                print("MASK: ")
+                print(mask)
+                print(img.shape)
                 x[i] = img
 
             if verbose:
