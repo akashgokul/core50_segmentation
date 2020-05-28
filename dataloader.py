@@ -198,11 +198,12 @@ class CORE50(object):
             train_y_mask = []
             #TODO: FIX BELOW TO SEGMENT
             if(self.task_type == 'detect'):
-                train_y_mask = self.get_batch_from_paths(['/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' 
-                                                            + 
-                                                        path.replace('C','D') for path in train_relative_paths], mask=True)
-            print("Mask")
-            print(train_y_mask[-1])
+                mask_paths = ['/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' 
+                                + 
+                            path[-4] +'_seg.png' for path in train_relative_paths]
+                print("Mask")
+                print(mask_paths[-1])
+                train_y_mask = self.get_batch_from_paths(mask_paths, mask=True)
 
             train_y_label = np.asarray(train_y_label, dtype=np.float32)
             targets = {'bbox': train_y_bbox, 'label':train_y_label, 'mask':train_y_mask}
