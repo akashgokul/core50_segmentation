@@ -111,8 +111,8 @@ class CORE50(object):
         paths = []
         for idx in range(len(self.paths)):
             curr_dir = os.path.join(self.root, self.paths[idx])
-            #if(os.path.isfile(curr_dir[:-4]+'_seg.png')):
-            paths.append(self.paths[idx])
+            if(os.path.isfile(curr_dir[:-4]+'_seg.png')):
+                paths.append(self.paths[idx])
         self.paths = paths
 
         print("Loading LUP...")
