@@ -34,8 +34,10 @@ from hashlib import md5
 from PIL import Image
 
 from core50_helper_dataset import CORE50
+from torch.utils.tensorboard import SummaryWriter
 
 import torch
+
 
 class CORE50(object):
     """ CORe50 Data Loader class
@@ -175,11 +177,10 @@ class CORE50(object):
                     for img_path in train_relative_paths]
                 train_y_bbox = torch.as_tensor(train_y_bbox)
             
-            train_y_mask = []
+            train_y_mask = np.array([])
             if(self.task_type == 'segment'):
-                train_y_mask = self.get_batch_from_paths(['/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' 
-                                                            + 
-                                                        path.replace('C','D') for path in train_relative_paths], mask=True)
+                mask_paths = [path[:-4] +'_seg.png' for path in train_paths]
+                train_y_mask = self.get_batch_from_paths(mask_paths, mask=True)
 
             train_y_label = np.asarray(train_y_label, dtype=np.float32)
             targets = {'bbox': train_y_bbox, 'label':train_y_label, 'mask':train_y_mask}
@@ -196,12 +197,8 @@ class CORE50(object):
             #     train_y_bbox = torch.as_tensor(train_y_bbox)
 
             train_y_mask = np.array([])
-            #TODO: FIX BELOW TO SEGMENT
-            print("HERE")
-            if(self.task_type == 'detect'):
-                mask_paths = [path[:-4] +'_seg.png' for path in train_paths if os.path.isfile(path[:-4] +'_seg.png')]
-                print("Paths")
-                print(mask_paths[-1])
+            if(self.task_type == 'segment'):
+                mask_paths = [path[:-4] +'_seg.png' for path in train_paths]
                 train_y_mask = self.get_batch_from_paths(mask_paths, mask=True)
 
             train_y_label = np.asarray(train_y_label, dtype=np.float32)
@@ -246,11 +243,10 @@ class CORE50(object):
             test_y_bbox = torch.as_tensor(test_y_bbox)
 
 
-        test_y_mask = []
+        test_y_mask = np.array([])
         if(self.task_type == 'segment'):
-            test_y_mask = self.get_batch_from_paths(['/home/akash/core50/data/home/martin/core50_128x128_DepthMap/' 
-                                                        + 
-                                                    path.replace('C','D') for path in test_relative_paths], mask=True)
+            mask_paths = [path[:-4] +'_seg.png' for path in test_paths]
+            test_y_mask = self.get_batch_from_paths(mask_paths, mask=True)
 
         test_y_label = np.asarray(test_y_label, dtype=np.float32)
         targets = {'bbox': test_y_bbox, 'label':test_y_label, 'mask':test_y_mask}
@@ -302,7 +298,7 @@ class CORE50(object):
         if not loaded:
             # Pre-allocate numpy arrays
             if(mask):
-                x = np.zeros((num_imgs, 128, 128, 1), dtype=np.uint8)
+                x = np.zeros((num_imgs, 128, 128), dtype=np.uint8)
             else:
                 x = np.zeros((num_imgs, 128, 128, 3), dtype=np.uint8)
 
@@ -310,11 +306,6 @@ class CORE50(object):
                 if verbose:
                     print("\r" + path + " processed: " + str(i + 1), end='')
                 img = Image.open(path)
-                #Just in case convert to grayscale
-                if(mask):
-                    img = img.convert("L")
-                    img = np.expand_dims(img, axis=-1)
-
                 img = np.array(img)
                 x[i] = img
 
@@ -338,7 +329,8 @@ if __name__ == "__main__":
 
     # Create the dataset object for example with the "NIC_v2 - 79 benchmark"
     # and assuming the core50 location in ~/core50/128x128/
-    dataset = CORE50(root='/home/akash/core50/data/core50_128x128', scenario="ni", task_type='detect')
+    dataset = CORE50(root='/home/akash/core50/data/core50_128x128', scenario="ni", task_type='segment')
+    writer = SummaryWriter()
 
     # Get the fixed test set
     # test_x, test_y = dataset.get_test_set()
@@ -352,6 +344,8 @@ if __name__ == "__main__":
         print("----------- batch {0} -------------".format(i))
         print("train_x shape: {}, train_y shape: {}"
               .format(train_x.shape, train_y['mask'].shape))
+        img_1 = train_y[0,:,:]
+        writer.add_image('task_'+str(t), img_1,dataformats='HW')
 
         # use the data
         pass
