@@ -344,7 +344,7 @@ if __name__ == "__main__":
         print("----------- batch {0} -------------".format(i))
         print("train_x shape: {}, train_y shape: {}"
               .format(train_x.shape, train_y['mask'].shape))
-        img_1 = train_y[0,:,:]
+        img_1 = train_y['mask'][0,:,:]
         writer.add_image('task_'+str(t), img_1,dataformats='HW')
 
         # use the data
