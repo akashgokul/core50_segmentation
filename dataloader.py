@@ -346,7 +346,7 @@ if __name__ == "__main__":
               .format(train_x.shape, train_y['mask'].shape))
         img_1 = train_y['mask'][0,:,:]
         writer.add_image('task_img_'+str(t),train_x[0,:,:,:],dataformats='HWC')
-        writer.add_image('task_seg_'+str(t), img_1,dataformats='HW')
+        #writer.add_image('task_seg_'+str(t), img_1,dataformats='HW')
 
         # use the data
         pass
