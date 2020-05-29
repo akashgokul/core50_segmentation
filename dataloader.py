@@ -156,8 +156,9 @@ class CORE50(object):
             train_paths = []
             train_relative_paths = []
             for idx in train_idx_list:
-                train_paths.append(os.path.join(self.root, self.paths[idx]))
-                train_relative_paths.append(self.paths[idx])
+                if(idx < len(self.paths)):
+                    train_paths.append(os.path.join(self.root, self.paths[idx]))
+                    train_relative_paths.append(self.paths[idx])
             # loading imgs
             train_x = self.get_batch_from_paths(train_paths).astype(np.float32)
 
