@@ -113,6 +113,7 @@ class CORE50(object):
             curr_dir = os.path.join(self.root, self.paths[idx])
             if(os.path.isfile(curr_dir[:-4]+'_seg.png')):
                 paths.append(self.paths[idx])
+        print(len(paths))
         self.paths = paths
 
         print("Loading LUP...")
@@ -346,7 +347,7 @@ if __name__ == "__main__":
               .format(train_x.shape, train_y['mask'].shape))
         img_1 = train_y['mask'][0,:,:]
         writer.add_image('task_img_'+str(t),train_x[0,:,:,:],dataformats='HWC')
-        #writer.add_image('task_seg_'+str(t), img_1,dataformats='HW')
+        writer.add_image('task_seg_'+str(t), img_1,dataformats='HW')
 
         # use the data
         pass
