@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 #Cuts training data into batches
-class CORE50(Dataset):
+class CORE50Helper(Dataset):
 
     """Helper Dataset for CORE50 Data"""
 
