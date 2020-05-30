@@ -33,10 +33,11 @@ import logging
 from hashlib import md5
 from PIL import Image
 
-from core50_helper_dataset import CORE50
-from torch.utils.tensorboard import SummaryWriter
-
+from core50_helper_dataset import CORE50Helper
 import torch
+from torch.utils.tensorboard import SummaryWriter
+from torch.utils.data import Dataset, DataLoader
+from torchvision import transforms, utils
 
 
 class CORE50(object):
@@ -325,6 +326,8 @@ class CORE50(object):
         assert (x is not None), 'Problems loading data. x is None!'
 
         return x
+
+
 
 
 if __name__ == "__main__":
