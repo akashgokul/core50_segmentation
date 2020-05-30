@@ -167,7 +167,7 @@ def save_seg(img_path):
             seg = rgb_image.convert("L")
             seg.save(image_path[:-4] + '_seg.png')
             print("--------\n")
-            plt.imsave(image_path[:-4] + '_newseg.png',seg, cmap=cm.gray)
+            # plt.imsave(image_path[:-4] + '_newseg.png',seg, cmap=cm.gray)
             # rgb_image.save('colors/' + image + '__dilated.png')
     print("------------")
     print("Skipped Files: " + str(missing_ct))
