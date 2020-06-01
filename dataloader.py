@@ -350,9 +350,10 @@ if __name__ == "__main__":
         print("train_x shape: {}, train_y shape: {}, task: {}"
               .format(train_x.shape, train_y['mask'].shape, t))
         if(train_x.shape[0] > 0):
+            print("TASK NOT EMPTY")
             img_1 = train_y['mask'][0,:,:]
             writer.add_image('task_img_'+str(t),train_x[0,:,:,:],dataformats='HWC')
-            writer.add_image('task_seg_'+str(t), img_1,dataformats='HW')
+            writer.add_image('task_img_'+str(t), img_1,dataformats='HW')
 
         # use the data
         pass
